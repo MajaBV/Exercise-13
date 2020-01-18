@@ -1,10 +1,11 @@
 import json
 import datetime
 import random
+
 player_name = input("What is your name? ")
 
 
-class result():
+class Result():
     def __init__(self, broj_pokusaja, player_name, datum):
         self.broj_pokusaja = broj_pokusaja
         self.player_name = player_name
@@ -22,10 +23,11 @@ def play_game():
         broj_pokusaja = broj_pokusaja + 1
 
         if guess == secret:
-            best_score.append({"broj_pokusaja": broj_pokusaja, "datum": str(datetime.datetime.now()), "igrac": player_name, "tajni_broj": secret, "pogresni_pokusaji": wrong_guesses})
+            new_score = Result(broj_pokusaja=broj_pokusaja, player_name=player_name, datum=str(datetime.datetime.now()))
+            best_score.append(new_score.__dict__)
 
             with open("score.txt", "w") as score_file:
-                score_file.write(json.dumps(best_score))
+                score_file.write(str(new_score.__dict__))
 
             print("Congratulations! You guessed the secret number.")
             print("Broj pokusaja: " + str(broj_pokusaja))
